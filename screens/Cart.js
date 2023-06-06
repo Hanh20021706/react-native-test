@@ -12,7 +12,7 @@ import add from "../assets/add.png";
 import minus from "../assets/minus.png";
 import remove from "../assets/remove.png";
 import { useDispatch, useSelector } from "react-redux";
-import removeFormCart, { decrementQuantify, incrementQuantify } from "../slice/cartSlice";
+import { decrementQuantify, incrementQuantify ,removeFormCart} from "../slice/cartSlice";
 
 const CartPage = () => {
   const dispatch =  useDispatch()
@@ -23,6 +23,9 @@ const CartPage = () => {
     0
   );
 
+  const handleRemove = (item)=> {
+    dispatch(removeFormCart(item))
+  }
   const handleIncrementQuantity = (item)=> {
     dispatch(incrementQuantify(item))
   }
@@ -128,7 +131,7 @@ const CartPage = () => {
                 </TouchableOpacity>
               </View>
             </View>
-            <TouchableOpacity onPress={() => handleRemove(value.id)} >
+            <TouchableOpacity onPress={() => handleRemove(value)} >
               <Image
                 source={remove}
                 style={{
