@@ -6,16 +6,27 @@ import {
   Button,
   TextInput,
   TouchableOpacity,
+  Pressable,
 } from "react-native";
 import add from "../assets/add.png";
 import minus from "../assets/minus.png";
 import remove from "../assets/remove.png";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import removeFormCart, { incrementQuantify } from "../slice/cartSlice";
 
 const CartPage = () => {
+  const dispatch =  useDispatch()
   const cartCount = useSelector((state) => state.notification.cartCount);
   const cartItems = useSelector((state) => state.cart.products);
-  const totalPrice = cartItems.reduce((total, product) => total + product.quantity * product.price , 0)
+  const totalPrice = cartItems.reduce(
+    (total, product) => total + product.quantity * product.price,
+    0
+  );
+
+  const handleIncrementQuantity = (item)=> {
+    dispatch(incrementQuantify(item))
+  }
+
   return (
     <View
       style={{
@@ -34,7 +45,8 @@ const CartPage = () => {
 
       {cartItems.length > 0 ? (
         cartItems.map((value) => (
-          <View key={value.id}
+          <View
+            key={value.id}
             style={{
               flexDirection: "row",
               justifyContent: "space-between",
@@ -72,7 +84,7 @@ const CartPage = () => {
                   fontWeight: 500,
                 }}
               >
-               {value.name}
+                {value.name}
               </Text>
               <Text
                 style={{
@@ -89,7 +101,7 @@ const CartPage = () => {
                   gap: 12,
                 }}
               >
-                <TouchableOpacity>
+                <TouchableOpacity >
                   <Image
                     source={minus}
                     style={{
@@ -98,9 +110,10 @@ const CartPage = () => {
                     }}
                   />
                 </TouchableOpacity>
-
-                <TextInput value="1" />
-                <TouchableOpacity>
+                    <Text>
+                      {value.quantity}
+                    </Text>
+                <TouchableOpacity  onPress={() => handleIncrementQuantity(value)}>
                   <Image
                     source={add}
                     style={{
@@ -111,7 +124,7 @@ const CartPage = () => {
                 </TouchableOpacity>
               </View>
             </View>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => handleRemove(value.id)} >
               <Image
                 source={remove}
                 style={{
@@ -121,100 +134,12 @@ const CartPage = () => {
               />
             </TouchableOpacity>
           </View>
-      
         ))
       ) : (
         <Text>Giỏ hàng trống</Text>
       )}
 
-      {/* <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginTop: 20,
-        }}
-      >
-        <View
-          style={{
-            paddingVertical: 15,
-            paddingHorizontal: 10,
-            backgroundColor: "#fff",
-            borderRadius: 20,
-          }}
-        >
-          <Image
-            style={{
-              width: 83,
-              height: 83,
-              borderRadius: 20,
-            }}
-            source={{
-              uri: "https://i.pinimg.com/564x/63/6a/2e/636a2e6afa3ef47a5e9912220022ed64.jpg",
-            }}
-          />
-        </View>
-        <View
-          style={{
-            gap: 11,
-          }}
-        >
-          <Text
-            style={{
-              fontSize: 16,
-              fontWeight: 500,
-            }}
-          >
-            Pizza Fries
-          </Text>
-          <Text
-            style={{
-              fontSize: 17,
-              color: "#C9AA05",
-              fontWeight: 700,
-            }}
-          >
-            $32
-          </Text>
-          <View
-            style={{
-              flexDirection: "row",
-              gap: 12,
-            }}
-          >
-            <TouchableOpacity>
-              <Image
-                source={minus}
-                style={{
-                  width: 20,
-                  height: 20,
-                }}
-              />
-            </TouchableOpacity>
-
-            <TextInput value="1" />
-            <TouchableOpacity>
-              <Image
-                source={add}
-                style={{
-                  width: 20,
-                  height: 20,
-                }}
-              />
-            </TouchableOpacity>
-          </View>
-        </View>
-        <TouchableOpacity>
-          <Image
-            source={remove}
-            style={{
-              width: 20,
-              height: 20,
-            }}
-          />
-        </TouchableOpacity>
-      </View> */}
-
+    
       <View
         style={{
           marginTop: 50,

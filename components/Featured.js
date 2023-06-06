@@ -52,7 +52,7 @@ const Featured = (navigation) => {
           marginVertical: 20,
           fontSize: 24,
         }}
-      >
+      > 
         Popular
       </Text>
 
