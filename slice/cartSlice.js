@@ -37,10 +37,22 @@ const cartSlice = createSlice({
         incrementQuantify : (state, action) => {
             const itemCart = state.products.find((item) => item.id === action.payload.id);
             itemCart.quantity++;
+        },
+
+        // decrement
+        decrementQuantify: (state , action) => {
+            itemCart = state.products.find((item) => item.id === action.payload.id);
+            if(itemCart.quantity == 1){
+                const removeFormCart = state.products.filter((item) => item.id !== action.payload.id);
+                state.products = removeFormCart;
+            }else{
+                itemCart.quantity--;
+            }
         }
+
     }
 })
 
-export const {addToCart , removeFormCart , incrementQuantify} = cartSlice.actions
+export const {addToCart , removeFormCart , incrementQuantify , decrementQuantify} = cartSlice.actions
 
 export default cartSlice.reducer
