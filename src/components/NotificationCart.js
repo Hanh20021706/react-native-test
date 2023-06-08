@@ -11,8 +11,8 @@ const NotificationCart = () => {
       style={{
         position: "absolute",
         backgroundColor: "red",
-        width: 40,
-        height: 40,
+        width: 30,
+        height: 30,
         top: -10,
         right: -20,
         borderWidth: 2,
@@ -25,7 +25,7 @@ const NotificationCart = () => {
           textAlign: "center",
           alignItems: "center",
           justifyContent: "center",
-          marginTop: 10,
+          marginTop: 5,
         }}
       >
         {cartTotal}

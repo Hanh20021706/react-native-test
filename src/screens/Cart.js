@@ -12,27 +12,36 @@ import add from "../assets/add.png";
 import minus from "../assets/minus.png";
 import remove from "../assets/remove.png";
 import { useDispatch, useSelector } from "react-redux";
-import { decrementQuantify, incrementQuantify ,removeFormCart} from "../slice/cartSlice";
+import {
+  decrementQuantify,
+  incrementQuantify,
+  removeFormCart,
+} from "../slice/cartSlice";
 
 const CartPage = () => {
-  const dispatch =  useDispatch()
-  const cartCount = useSelector((state) => state.notification.cartCount);
+  const dispatch = useDispatch();
+  const products = useSelector((state) => state.cart.products);
+  const cartTotal = products.reduce(
+    (total, product) => total + product.quantity,
+    0
+  );
   const cartItems = useSelector((state) => state.cart.products);
   const totalPrice = cartItems.reduce(
     (total, product) => total + product.quantity * product.price,
     0
   );
 
-  const handleRemove = (item)=> {
-    dispatch(removeFormCart(item))
-  }
-  const handleIncrementQuantity = (item)=> {
-    dispatch(incrementQuantify(item))
-  }
+  const handleRemove = (item) => {
+    dispatch(removeFormCart(item));
+  };
+
+  const handleIncrementQuantity = (item) => {
+    dispatch(incrementQuantify(item));
+  };
 
   const handleDecrementQuantity = (item) => {
-    dispatch(decrementQuantify(item))
-  }
+    dispatch(decrementQuantify(item));
+  };
 
   return (
     <View
@@ -40,14 +49,14 @@ const CartPage = () => {
         margin: 36,
       }}
     >
-      <Text
+      <Text 
         style={{
           fontSize: 20,
           textTransform: "uppercase",
-          fontWeight: 500,
+          fontWeight: "500",
         }}
       >
-        {cartCount} Sản phẩm
+        {cartTotal} Sản phẩm
       </Text>
 
       {cartItems.length > 0 ? (
@@ -88,7 +97,7 @@ const CartPage = () => {
               <Text
                 style={{
                   fontSize: 16,
-                  fontWeight: 500,
+                  fontWeight: "500",
                 }}
               >
                 {value.name}
@@ -97,7 +106,7 @@ const CartPage = () => {
                 style={{
                   fontSize: 17,
                   color: "#C9AA05",
-                  fontWeight: 700,
+                  fontWeight: "700",
                 }}
               >
                 ${value.price}
@@ -108,7 +117,9 @@ const CartPage = () => {
                   gap: 12,
                 }}
               >
-                <TouchableOpacity  onPress={() => handleDecrementQuantity(value)}>
+                <TouchableOpacity
+                  onPress={() => handleDecrementQuantity(value)}
+                >
                   <Image
                     source={minus}
                     style={{
@@ -117,10 +128,10 @@ const CartPage = () => {
                     }}
                   />
                 </TouchableOpacity>
-                    <Text>
-                      {value.quantity}
-                    </Text>
-                <TouchableOpacity  onPress={() => handleIncrementQuantity(value)}>
+                <Text>{value.quantity}</Text>
+                <TouchableOpacity
+                  onPress={() => handleIncrementQuantity(value)}
+                >
                   <Image
                     source={add}
                     style={{
@@ -131,7 +142,7 @@ const CartPage = () => {
                 </TouchableOpacity>
               </View>
             </View>
-            <TouchableOpacity onPress={() => handleRemove(value)} >
+            <TouchableOpacity onPress={() => handleRemove(value)}>
               <Image
                 source={remove}
                 style={{
@@ -146,7 +157,6 @@ const CartPage = () => {
         <Text>Giỏ hàng trống</Text>
       )}
 
-    
       <View
         style={{
           marginTop: 50,
@@ -166,7 +176,7 @@ const CartPage = () => {
           style={{
             fontSize: 22,
             color: "#C9AA05",
-            fontWeight: 700,
+            fontWeight: "700",
           }}
         >
           ${totalPrice}
@@ -186,7 +196,7 @@ const CartPage = () => {
               paddingVertical: 13,
               paddingHorizontal: 64,
               color: "#fff",
-              fontWeight: 600,
+              fontWeight: "600",
               fontSize: 27,
             }}
           >

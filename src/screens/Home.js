@@ -12,6 +12,7 @@ import search from "../assets/search.png";
 import CollectionListItem from "../components/CollectionListItem";
 import PromotionsItem from "../components/PromotionsItem";
 import Featured from "../components/Featured";
+import Toast from "react-native-root-toast";
 
 export default function HomeScreen({ navigation }) {
   return (
@@ -33,17 +34,12 @@ export default function HomeScreen({ navigation }) {
           </View>
           <CollectionListItem />
           <Button
-            title="Categories"
+            title="see all"
             onPress={() => {
               navigation.navigate("Categories", { name: "CATEGORY LIST" });
             }}
           />
-          <Button
-            title="Products"
-            onPress={() => {
-              navigation.navigate("Products", { name: "Products" });
-            }}
-          />
+
           <PromotionsItem />
           <Featured />
         </View>

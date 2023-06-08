@@ -27,7 +27,7 @@ const PromotionsItem = () => {
           <Text style={{
             color: '#fff', 
             fontSize: 20,
-            fontWeight: 600
+            fontWeight: "600"
           }}>Free box of Fries</Text>
           <Text style={{
             color: '#fff', 

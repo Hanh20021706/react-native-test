@@ -3,6 +3,7 @@ import { View , Text , Button , Image } from 'react-native'
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../slice/cartSlice';
 import { setCartCount, setNotification } from '../slice/cartNotificationSlice';
+import Toast from 'react-native-root-toast';
 
 
 const FeaturedItem = (props) => {
@@ -14,6 +15,7 @@ const FeaturedItem = (props) => {
       dispatch(addToCart(productItem));
       dispatch(setNotification("add to cart is success fully"));
       dispatch(setCartCount(1));
+      Toast.show("add to cart is success fully")
     };
   
     return (
@@ -57,7 +59,7 @@ const FeaturedItem = (props) => {
                 style={{
                   marginRight: 20,
                   fontSize: 18,
-                  fontWeight: 600,
+                  fontWeight: "600",
                   color: "#C9AA05",
                 }}
               >

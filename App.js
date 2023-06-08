@@ -10,12 +10,9 @@ import Setting from "./screens/Setting";
 import CartPage from "./screens/Cart";
 import Products from "./screens/Products";
 import { Provider, useSelector } from "react-redux";
-import createStore from "./slice/store";
-import store from "./slice/store";
+import store, { persister } from "./slice/store";
 import NotificationCart from "./components/NotificationCart";
-
-// const store = createStore()
-
+import { PersistGate } from "redux-persist/integration/react";
 // cart stack
 const CartStack = createBottomTabNavigator();
 
@@ -50,7 +47,6 @@ function HomeStackScreen() {
         component={detailCategory}
         options={({ route }) => ({ title: route.params.name })}
       />
-      
     </HomeStack.Navigator>
   );
 }
@@ -74,102 +70,105 @@ const screenOptions = {
 };
 
 export default function App(props) {
- 
   return (
     <Provider store={store}>
-      <NavigationContainer>
-        <Tab.Navigator screenOptions={screenOptions}>
-          <Tab.Screen
-            name="Home"
-            component={HomeStackScreen}
-            options={{
-              tabBarIcon: ({ focused }) => {
-                return (
-                  <View
-                    style={{
-                      justifyContent: "center",
-                      alignItems: "center",
-                      top: 15,
-                      gap: 5,
-                    }}
-                  >
-                    <Image
-                      source={require("./assets/home.png")}
-                      name="Home"
+      <PersistGate loading={null} persistor={persister}>
+        <NavigationContainer>
+          <Tab.Navigator screenOptions={screenOptions}>
+            <Tab.Screen
+              name="Home"
+              component={HomeStackScreen}
+              options={{
+                tabBarIcon: ({ focused }) => {
+                  return (
+                    <View
                       style={{
-                        tintColor: focused ? "#fff" : "#ccc",
-                        width: 20,
-                        height: 20,
+                        justifyContent: "center",
+                        alignItems: "center",
+                        top: 15,
+                        gap: 5,
                       }}
-                    />
-                    <Text style={{ fontSize: 20, color: "#fff" }}>Home</Text>
-                  </View>
-                );
-              },
-            }}
-          />
+                    >
+                      <Image
+                        source={require("./assets/home.png")}
+                        name="Home"
+                        style={{
+                          tintColor: focused ? "#fff" : "#ccc",
+                          width: 20,
+                          height: 20,
+                        }}
+                      />
+                      <Text style={{ fontSize: 20, color: "#fff" }}>Home</Text>
+                    </View>
+                  );
+                },
+              }}
+            />
 
-          <Tab.Screen
-            name="Cart"
-            component={CartStackScreen}
-            options={{
-              tabBarIcon: ({ focused }) => {
-                return (
-                  <View
-                    style={{
-                      justifyContent: "center",
-                      alignItems: "center",
-                      top: 15,
-                      gap: 5,
-                    }}
-                  >
-                    <Image
-                      source={require("./assets/cart.png")}
-                      name="Home"
+            <Tab.Screen
+              name="Cart"
+              component={CartStackScreen}
+              options={{
+                tabBarIcon: ({ focused }) => {
+                  return (
+                    <View
                       style={{
-                        tintColor: focused ? "#fff" : "#ccc",
-                        width: 20,
-                        height: 20,
+                        justifyContent: "center",
+                        alignItems: "center",
+                        top: 15,
+                        gap: 5,
                       }}
-                    />
-                    <Text style={{ fontSize: 20, color: "#fff" }}>Cart</Text>
-                    <NotificationCart/>
-                  </View>
-                );
-              },
-            }}
-          />
-          <Tab.Screen
-            name="Setting"
-            component={Setting}
-            options={{
-              tabBarIcon: ({ focused }) => {
-                return (
-                  <View
-                    style={{
-                      justifyContent: "center",
-                      alignItems: "center",
-                      top: 15,
-                      gap: 5,
-                    }}
-                  >
-                    <Image
-                      source={require("./assets/api.png")}
-                      name="Home"
+                    >
+                      <Image
+                        source={require("./assets/cart.png")}
+                        name="Home"
+                        style={{
+                          tintColor: focused ? "#fff" : "#ccc",
+                          width: 20,
+                          height: 20,
+                        }}
+                      />
+                      <Text style={{ fontSize: 20, color: "#fff" }}>Cart</Text>
+                      <NotificationCart />
+                    </View>
+                  );
+                },
+              }}
+            />
+            <Tab.Screen
+              name="Setting"
+              component={Setting}
+              options={{
+                tabBarIcon: ({ focused }) => {
+                  return (
+                    <View
                       style={{
-                        tintColor: focused ? "#fff" : "#ccc",
-                        width: 20,
-                        height: 20,
+                        justifyContent: "center",
+                        alignItems: "center",
+                        top: 15,
+                        gap: 5,
                       }}
-                    />
-                    <Text style={{ fontSize: 20, color: "#fff" }}>Setting</Text>
-                  </View>
-                );
-              },
-            }}
-          />
-        </Tab.Navigator>
-      </NavigationContainer>
+                    >
+                      <Image
+                        source={require("./assets/api.png")}
+                        name="Home"
+                        style={{
+                          tintColor: focused ? "#fff" : "#ccc",
+                          width: 20,
+                          height: 20,
+                        }}
+                      />
+                      <Text style={{ fontSize: 20, color: "#fff" }}>
+                        Setting
+                      </Text>
+                    </View>
+                  );
+                },
+              }}
+            />
+          </Tab.Navigator>
+        </NavigationContainer>
+      </PersistGate>
     </Provider>
   );
 }

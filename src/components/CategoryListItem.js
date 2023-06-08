@@ -37,7 +37,7 @@ const style = StyleSheet.create({
     fontSize: 20,
     textTransform: "uppercase",
     marginBottom: 10,
-    fontWeight: 500,
+    fontWeight: "500",
   },
   categoryImage: {
     width: 50,
