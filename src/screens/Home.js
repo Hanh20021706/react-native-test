@@ -8,7 +8,7 @@ import {
   TextInput,
   ScrollView,
 } from "react-native";
-import search from "../assets/search.png";
+import search from "../../assets/search.png";
 import CollectionListItem from "../components/CollectionListItem";
 import PromotionsItem from "../components/PromotionsItem";
 import Featured from "../components/Featured";

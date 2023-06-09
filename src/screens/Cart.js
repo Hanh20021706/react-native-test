@@ -8,9 +8,9 @@ import {
   TouchableOpacity,
   Pressable,
 } from "react-native";
-import add from "../assets/add.png";
-import minus from "../assets/minus.png";
-import remove from "../assets/remove.png";
+import add from "../../assets/add.png";
+import minus from "../../assets/minus.png";
+import remove from "../../assets/remove.png";
 import { useDispatch, useSelector } from "react-redux";
 import {
   decrementQuantify,
